@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Eventos Modificadores</title>
+    </head>
+        <body>
+            <div id="app">
+                <a v-bind:href="urlLink" @click.prevent="showAlert">{{textLink}}</a>
+
+                <form action="#" method="post" @submit.prevent="showAlert">
+                    <input type="text" placeholder="Nome:">
+
+                    <button type="submit">Enviar Formulário</button>
+                </form>
+
+                <button @click.once="showAlert">Clique me!</button>
+            </div>
+
+            <script src="https://unpkg.com/vue"></script>
+            <script>
+                new Vue({
+                    el: '#app',
+                    data: {
+                        textLink: 'EspecializaTI Academy',
+                        urlLink: 'https://academy.especializati.com.br'
+                    },
+                    methods: {
+                        showAlert(event) {
+                            //event.preventDefault()
+
+                            alert('Clicou no link')
+                        }
+                    }
+                })
+            </script>
+        </body>
+</html>
