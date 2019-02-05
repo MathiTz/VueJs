@@ -17,11 +17,13 @@
                     <div :class="['col-6', playerActived == 1 ? 'active' : '' ]">
                         <img src="assets/player1.png" alt="">
                         <p>Player 1</p>
+                        <p><strong>Pontos: </strong> {{playerOne.points}} </p>
                     </div>
             
                     <div :class="['col-6', playerActived == 2 ? 'active' : '' ]">
-                        <img src="assets/player2.png" alt="">
+                        <img src="assets/player2.png" alt=""> 
                         <p>Player 2</p>
+                        <p><strong>Pontos: </strong> {{playerTwo.points}} </p>
                     </div>
             </div>
 
@@ -29,19 +31,20 @@
                 <a href="#" class="btn btn-success" @click.prevent="changePlayer">Pular</a>
                 <a href="#" class="btn btn-primary">Finalizar Jogo</a>
                 <a href="#" class="btn btn-danger">Resetar</a>
-
             </div>
 
             <hr>
 
             <div class="row">
                 <div class="col-6">
-                    <a href="#">
+                    <a href="#" @click.prevent="selectedCart">
                         <img src="assets/baralho-cartas.png" alt="Baralho" class="carts">
                     </a>
                 </div>
                 <div class="col-6">
-                    <img src="assets/carts/1.png" alt="Carta" class="cart">
+                    <div v-if="cartSelected != ''">
+                    <img :src="'assets/carts/' + cartSelected + '.png'" alt="Carta" class="cart">
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,11 +55,27 @@
             new Vue ({
                 el: '#app',
                 data: {
-                    playerActived: 1
+                    playerActived: 1,
+                    playerOne: {
+                        points: 0
+                    },
+                    playerTwo: {
+                        points: 0
+                    },
+                    cartSelected: ''
                 },
                 methods: {
                     changePlayer() {
                         this.playerActived = this.playerActived == 1 ? 2 : 1
+                    },
+                    selectedCart () {
+                        this.cartSelected = Math.floor((Math.random() * 13) + 1)
+
+                        if (this.playerActived == 1){
+                            this.playerOne.points += this.cartSelected
+                        } else {
+                            this.playerTwo.points += this.cartSelected
+                        }
                     }
                 }
             })
